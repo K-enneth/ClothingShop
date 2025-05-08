@@ -1,4 +1,5 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace ClothesShop.Scripts.Player
@@ -24,9 +25,12 @@ namespace ClothesShop.Scripts.Player
             _rb.linearVelocity = _direction * speed;
         }
 
-        private void OnTriggerEnter2D(Collider2D collision)
+        private void OnTriggerStay2D(Collider2D collision)
         {
-            
+            if (collision.GameObject().TryGetComponent(out Interfaces.IInteractable interactable) && Input.GetKey(KeyCode.E))
+            {
+                interactable.Interact();
+            }
         }
     }
     
