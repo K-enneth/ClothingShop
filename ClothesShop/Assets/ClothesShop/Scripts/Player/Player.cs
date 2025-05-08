@@ -1,0 +1,34 @@
+using System;
+using UnityEngine;
+
+namespace ClothesShop.Scripts.Player
+{
+    public class Player : MonoBehaviour
+    {
+        [Header("Movement")]
+        public float speed;
+        private Rigidbody2D _rb;
+        private Vector2 _direction;
+        private bool _canMove = true;
+        
+        private void Start()
+        {
+            _rb = GetComponent<Rigidbody2D>();
+        }
+
+        private void Update()
+        {
+            _direction.x = Input.GetAxisRaw("Horizontal");
+            _direction.y = Input.GetAxisRaw("Vertical");
+            _direction.Normalize();
+            _rb.linearVelocity = _direction * speed;
+        }
+
+        private void OnTriggerEnter2D(Collider2D collision)
+        {
+            
+        }
+    }
+    
+}
+
