@@ -1,18 +1,21 @@
-using System;
 using UnityEngine;
 
 namespace ClothesShop.Scripts.NPCs
 {
-    public class Npc : MonoBehaviour,Interfaces.IInteractable
+    public class ShopKeeper : MonoBehaviour,Interfaces.IInteractable
     {
-        [SerializeField] private Canvas canvas;
+        [SerializeField] private GameObject canvas;
         [SerializeField] private GameObject icon;
-        
-        public virtual void Interact()
+        public void Interact()
         {
-            
+            OpenShop();
         }
-
+        private void OpenShop()
+        {
+            canvas.GetComponent<Canvas>().enabled = true;
+            Debug.Log("Open Shop");
+        }
+        
         public void ShowIcon()
         {
             icon.SetActive(true);

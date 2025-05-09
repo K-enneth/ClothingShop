@@ -11,6 +11,9 @@ namespace ClothesShop.Scripts.Player
         private Rigidbody2D _rb;
         private Vector2 _direction;
         private bool _canMove = true;
+
+        [Header("Interact")] 
+        private Interfaces.IInteractable _currentInteractable;
         
         private void Start()
         {
@@ -23,13 +26,26 @@ namespace ClothesShop.Scripts.Player
             _direction.y = Input.GetAxisRaw("Vertical");
             _direction.Normalize();
             _rb.linearVelocity = _direction * speed;
+            
+            if (Input.GetKeyDown(KeyCode.E) && _currentInteractable != null)
+            {
+                _currentInteractable.Interact();
+            }
         }
 
-        private void OnTriggerStay2D(Collider2D collision)
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.GameObject().TryGetComponent(out Interfaces.IInteractable interactable) && Input.GetKey(KeyCode.E))
+            if (collision.GameObject().TryGetComponent(out Interfaces.IInteractable interactable))
             {
-                interactable.Interact();
+                _currentInteractable = interactable;
+            }
+        }
+        
+        private void OnTriggerExit2D(Collider2D collision)
+        {
+            if (collision.gameObject.TryGetComponent(out Interfaces.IInteractable interactable) && interactable == _currentInteractable)
+            {
+                _currentInteractable = null;
             }
         }
     }

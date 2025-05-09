@@ -8,6 +8,7 @@ namespace ClothesShop.Scripts
         {
             void Interact();
             void ShowIcon();
+            void HideIcon();
         }
     }
 }
