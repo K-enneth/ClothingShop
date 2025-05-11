@@ -22,6 +22,7 @@ namespace ClothesShop.Scripts.Player
 
         private void Update()
         {
+            if (!_canMove) return;
             _direction.x = Input.GetAxisRaw("Horizontal");
             _direction.y = Input.GetAxisRaw("Vertical");
             _direction.Normalize();
@@ -47,6 +48,11 @@ namespace ClothesShop.Scripts.Player
             {
                 _currentInteractable = null;
             }
+        }
+
+        public void EnableMovement()
+        {
+            _canMove = true;
         }
     }
     
