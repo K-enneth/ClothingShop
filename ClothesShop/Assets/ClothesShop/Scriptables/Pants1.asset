@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 12055eb40d65ab048b310ca2c579a80c, type: 3}
   m_Name: Pants1
   m_EditorClassIdentifier: 
-  itemName: 
   clothingType: 1
   icon: {fileID: 0}
-  clothingSprite: {fileID: 0}
+  clothingSprite: {fileID: 2160568379257850318, guid: 2fc8403f09aaf0746901e035652acbd8, type: 3}
   price: 0

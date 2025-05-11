@@ -14,7 +14,18 @@ namespace ClothesShop.Scripts.Player
 
         [Header("Interact")] 
         private Interfaces.IInteractable _currentInteractable;
-        
+
+
+        private void OnEnable()
+        {
+            UIManager.OnCloseMenu += EnableMovement;
+        }
+
+        private void OnDisable()
+        {
+            UIManager.OnCloseMenu -= EnableMovement;
+        }
+
         private void Start()
         {
             _rb = GetComponent<Rigidbody2D>();
@@ -31,6 +42,7 @@ namespace ClothesShop.Scripts.Player
             if (Input.GetKeyDown(KeyCode.E) && _currentInteractable != null)
             {
                 _currentInteractable.Interact();
+                DisableMovement();
             }
         }
 
@@ -53,6 +65,11 @@ namespace ClothesShop.Scripts.Player
         public void EnableMovement()
         {
             _canMove = true;
+        }
+
+        private void DisableMovement()
+        {
+            _canMove = false;
         }
     }
     
