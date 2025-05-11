@@ -42,7 +42,8 @@ namespace ClothesShop.Scripts.Player
             {
                 Unequip(item);
                 playerItems.Remove(item);
-                coins += item.price - 10;
+                int lostValue = item.price / 3;
+                coins += item.price - lostValue;
                 OnCoinsChanged?.Invoke(coins);
                 OnInventoryChanged?.Invoke();
             }
@@ -50,6 +51,12 @@ namespace ClothesShop.Scripts.Player
             {
                 Equip(item);
             }
+        }
+
+        public void GainMoney(int money)
+        {
+            coins += money;
+            OnCoinsChanged?.Invoke(coins);
         }
 
         private void Equip(Items clothes)
