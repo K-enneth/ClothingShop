@@ -8,7 +8,7 @@ namespace ClothesShop.Scripts.Player
     {
         public List<Items> playerItems = new List<Items>();
         public int coins = 100;
-        [SerializeField] private bool isShop = false;
+        public bool isShop = false;
     
         [Header("Equipment Layers")]
         [SerializeField] private SpriteRenderer shirtLayer;
@@ -37,6 +37,7 @@ namespace ClothesShop.Scripts.Player
         {
             if (isShop)
             {
+                Unequip(item);
                 playerItems.Remove(item);
                 OnInventoryChanged?.Invoke();
             }
@@ -62,7 +63,24 @@ namespace ClothesShop.Scripts.Player
                 default:
                     throw new ArgumentOutOfRangeException();
             }
-        
+        }
+
+        private void Unequip(Items clothes)
+        {
+            switch (clothes.clothingType)
+            {
+                case ClothingType.Shirt :
+                    shirtLayer.sprite = null;
+                    break;
+                case ClothingType.Pants :
+                    pantsLayer.sprite = null;
+                    break;
+                case ClothingType.Shoe :
+                    shoesLayer.sprite = null;
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
         }
     }
 }

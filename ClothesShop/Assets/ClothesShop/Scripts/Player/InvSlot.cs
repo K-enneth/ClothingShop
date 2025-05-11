@@ -8,8 +8,7 @@ namespace ClothesShop.Scripts.Player
     public class InvSlot : MonoBehaviour
     {
         public Image icon;
-    
-        [SerializeField] public Items item;
+        public Items item;
 
         public static Action<Items> OnSlotUsed;
 

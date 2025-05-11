@@ -1,6 +1,7 @@
 using System;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace ClothesShop.Scripts.Player
 {
@@ -12,10 +13,13 @@ namespace ClothesShop.Scripts.Player
         private Vector2 _direction;
         private bool _canMove = true;
 
+        [Header("Inventory")]
+        [SerializeField] private Canvas inventory;
+        [SerializeField] private bool inventoryOpen;
+        
         [Header("Interact")] 
         private Interfaces.IInteractable _currentInteractable;
-
-
+        
         private void OnEnable()
         {
             UIManager.OnCloseMenu += EnableMovement;
@@ -33,6 +37,11 @@ namespace ClothesShop.Scripts.Player
 
         private void Update()
         {
+            if (Input.GetKeyDown(KeyCode.I))
+            {
+                InventoryUI(inventoryOpen);
+            }
+            
             if (!_canMove) return;
             _direction.x = Input.GetAxisRaw("Horizontal");
             _direction.y = Input.GetAxisRaw("Vertical");
@@ -62,6 +71,23 @@ namespace ClothesShop.Scripts.Player
             }
         }
 
+        private void InventoryUI(bool isOpen)
+        {
+            if (!isOpen)
+            {
+                if (!_canMove) return;
+                inventory.GetComponent<Canvas>().enabled = true;
+                inventoryOpen = true;
+                DisableMovement();
+            }
+            else
+            {
+                inventory.GetComponent<Canvas>().enabled = false;
+                inventoryOpen = false;
+                EnableMovement();
+            }
+        }
+
         public void EnableMovement()
         {
             _canMove = true;
@@ -69,6 +95,7 @@ namespace ClothesShop.Scripts.Player
 
         private void DisableMovement()
         {
+            _rb.linearVelocity = Vector2.zero;
             _canMove = false;
         }
     }

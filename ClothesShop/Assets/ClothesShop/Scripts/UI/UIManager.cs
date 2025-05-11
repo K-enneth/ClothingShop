@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using ClothesShop.Scripts.Player;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     public Inventory inventory;
     public Transform container;
     public GameObject slotPrefab;
+    private List<Items> _currentItems = new List<Items>();
 
     public static Action OnCloseMenu;
 
@@ -31,15 +33,33 @@ public class UIManager : MonoBehaviour
 
     private void UpdateInventory()
     {
-        foreach (Transform child in container)
+        var ownedItems = inventory.playerItems;
+        for (int i = _currentItems.Count - 1; i >= 0; i--)
         {
-            Destroy(child.gameObject);
+            if (!ownedItems.Contains(_currentItems[i]))
+            {
+                foreach (Transform child in container)
+                {
+                    var slot = child.GetComponent<InvSlot>();
+                    if (slot != null && slot.item == _currentItems[i])
+                    {
+                        Destroy(child.gameObject);
+                        break;
+                    }
+                }
+                _currentItems.RemoveAt(i);
+            }
         }
 
-        foreach (var item in inventory.playerItems)
+        for (var indexItem = 0; indexItem < ownedItems.Count; indexItem++)
         {
-            var slot = Instantiate(slotPrefab, container);
-            slot.GetComponent<InvSlot>().Setup(item);
+            var item = ownedItems[indexItem];
+            if (!_currentItems.Contains(item))
+            {
+                GameObject slot = Instantiate(slotPrefab, container);
+                slot.GetComponent<InvSlot>().Setup(item);
+                _currentItems.Add(item);
+            }
         }
     }
 
