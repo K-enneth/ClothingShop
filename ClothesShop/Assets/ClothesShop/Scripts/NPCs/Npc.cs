@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 namespace ClothesShop.Scripts.NPCs
@@ -10,8 +11,8 @@ namespace ClothesShop.Scripts.NPCs
         
         public virtual void Interact()
         {
-            
         }
+        
 
         public void ShowIcon()
         {

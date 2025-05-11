@@ -1,4 +1,5 @@
 using System;
+using ClothesShop.Scripts.UI;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -30,7 +31,7 @@ namespace ClothesShop.Scripts.Player
             UIManager.OnCloseMenu -= EnableMovement;
         }
 
-        private void Start()
+        private void Awake()
         {
             _rb = GetComponent<Rigidbody2D>();
         }
@@ -93,7 +94,7 @@ namespace ClothesShop.Scripts.Player
             _canMove = true;
         }
 
-        private void DisableMovement()
+        public void DisableMovement()
         {
             _rb.linearVelocity = Vector2.zero;
             _canMove = false;
