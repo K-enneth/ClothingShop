@@ -11,7 +11,7 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(Items item)
     {
-        if (inventory.coins <= item.price || inventory.playerItems.Contains(item))
+        if (inventory.coins < item.price || inventory.playerItems.Contains(item))
         {
             StartCoroutine(ShowError());
         }

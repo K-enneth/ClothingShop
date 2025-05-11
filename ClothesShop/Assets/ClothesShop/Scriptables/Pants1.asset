@@ -15,4 +15,4 @@ MonoBehaviour:
   clothingType: 1
   icon: {fileID: 2160568379257850318, guid: 2fc8403f09aaf0746901e035652acbd8, type: 3}
   clothingSprite: {fileID: 2160568379257850318, guid: 2fc8403f09aaf0746901e035652acbd8, type: 3}
-  price: 0
+  price: 25

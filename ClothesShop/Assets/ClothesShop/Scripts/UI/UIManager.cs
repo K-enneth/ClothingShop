@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using ClothesShop.Scripts.Player;
+using TMPro;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -12,23 +13,33 @@ public class UIManager : MonoBehaviour
     public Transform container;
     public GameObject slotPrefab;
     private List<Items> _currentItems = new List<Items>();
+    
+    [Header("Coins")]
+    [SerializeField] private TextMeshProUGUI coinText;
 
     public static Action OnCloseMenu;
 
     public void OnEnable()
     {
         Inventory.OnInventoryChanged += UpdateInventory;
+        Inventory.OnCoinsChanged += UpdateCoins;
     }
 
     public void OnDisable()
     {
         Inventory.OnInventoryChanged -= UpdateInventory;
+        Inventory.OnCoinsChanged -= UpdateCoins;
     }
 
     public void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         UpdateInventory();
+    }
+
+    private void UpdateCoins(int coins)
+    {
+        coinText.text = "$" + coins;
     }
 
     private void UpdateInventory()

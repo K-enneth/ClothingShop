@@ -16,6 +16,7 @@ namespace ClothesShop.Scripts.Player
         [SerializeField] private SpriteRenderer shoesLayer;
         
         public static Action OnInventoryChanged;
+        public static Action<int> OnCoinsChanged;
 
         private void OnEnable()
         {
@@ -30,15 +31,19 @@ namespace ClothesShop.Scripts.Player
         public void AddItem(Items item)
         {
             playerItems.Add(item);
+            coins -= item.price;
+            OnCoinsChanged?.Invoke(coins);
             OnInventoryChanged?.Invoke();
         }
 
-        public void RemoveItem(Items item)
+        private void RemoveItem(Items item)
         {
             if (isShop)
             {
                 Unequip(item);
                 playerItems.Remove(item);
+                coins += item.price - 10;
+                OnCoinsChanged?.Invoke(coins);
                 OnInventoryChanged?.Invoke();
             }
             else
@@ -47,7 +52,7 @@ namespace ClothesShop.Scripts.Player
             }
         }
 
-        public void Equip(Items clothes)
+        private void Equip(Items clothes)
         {
             switch (clothes.clothingType)
             {
