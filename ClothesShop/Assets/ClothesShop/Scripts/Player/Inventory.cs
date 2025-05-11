@@ -8,11 +8,43 @@ namespace ClothesShop.Scripts.Player
     {
         public List<Items> playerItems = new List<Items>();
         public int coins = 100;
+        [SerializeField] private bool isShop = false;
     
         [Header("Equipment Layers")]
         [SerializeField] private SpriteRenderer shirtLayer;
         [SerializeField] private SpriteRenderer pantsLayer;
         [SerializeField] private SpriteRenderer shoesLayer;
+        
+        public static Action OnInventoryChanged;
+
+        private void OnEnable()
+        {
+            InvSlot.OnSlotUsed += RemoveItem;
+        }
+
+        private void OnDisable()
+        {
+            InvSlot.OnSlotUsed -= RemoveItem;
+        }
+
+        public void AddItem(Items item)
+        {
+            playerItems.Add(item);
+            OnInventoryChanged?.Invoke();
+        }
+
+        public void RemoveItem(Items item)
+        {
+            if (isShop)
+            {
+                playerItems.Remove(item);
+                OnInventoryChanged?.Invoke();
+            }
+            else
+            {
+                Equip(item);
+            }
+        }
 
         public void Equip(Items clothes)
         {

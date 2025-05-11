@@ -15,12 +15,13 @@ public class ShopManager : MonoBehaviour
 
     public void BuyItem(Items item)
     {
-        
+        inventory.Equip(item);
     }
 
-    public void CloseShop()
+    public void SellItem(Items item)
     {
-        shopCanvas.enabled = false;
+        
     }
+    
     
 }

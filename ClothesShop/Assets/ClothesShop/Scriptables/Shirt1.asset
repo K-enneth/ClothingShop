@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Shirt1
   m_EditorClassIdentifier: 
   clothingType: 0
-  icon: {fileID: 0}
+  icon: {fileID: -760582757022987425, guid: 08b6837ce72bd1147a9b1bad4ada7854, type: 3}
   clothingSprite: {fileID: -760582757022987425, guid: 08b6837ce72bd1147a9b1bad4ada7854, type: 3}
   price: 0
